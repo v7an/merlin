@@ -8,8 +8,8 @@ export async function execute(Merlin: Merlin, message: Message) {
 
     badwords.forEach((b) => {
         if(message.author.id === Merlin.user.id) return
-        if(message.content.includes(b.toString().toLowerCase())) {
-            message.channel?.createMessage({
+        if(message.content.toLowerCase().replace(/\s/g, '').includes(b.toString().toLowerCase())) {
+            cobst del = await message.channel?.createMessage({
                 content: `${message.author.mention}, please use appropriate words !`,
                 flags: 64
             })
