@@ -1,0 +1,15 @@
+{
+    "id": "863939538547245087",
+    "token": "ODYzOTM5NTM4NTQ3MjQ1MDg3.G5p3QI.ZW_lORTPEpqeWEI0C2dd1lQ_4Y31iXROTq0ncg",
+    "buyer": ["1187392470603010131", "905590800539328522", "1168073925461299211", "1177356670708494374"],
+    "status": 0,
+    "prefix": "pls ",
+    "type": "Hybrid",
+    "color": "2B2D31",
+    "activity": {
+        "name": "🔮 v0.1 | Merlin 🪄",
+        "url": "https://twitch.tv/merlin",
+        "state": null,
+        "type": 1
+    }
+}
