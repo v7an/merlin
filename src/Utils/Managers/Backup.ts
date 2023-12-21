@@ -160,6 +160,14 @@ export class BackupManager {
           }
     }
 
+    public async view(userId: string, ID: string) {
+        const IdDir = join(__filename, `${this.dirname}/${userId}/${ID}`)
+        if(!exists(userId, ID)) return
+        const data = JSON.parse(readFileSync(IdDir, 'utf8'));
+        
+        return data
+
+    }
 
 
 }
