@@ -1,5 +1,5 @@
 import { Client, ChannelTypes, Guild } from "oceanic.js";
-import { readdirSync, writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
+import { readdirSync, writeFileSync, existsSync, mkdirSync, readFileSync, rmdirSync } from "fs";
 import { join } from "node:path";
 
 export class BackupManager {
@@ -169,5 +169,12 @@ export class BackupManager {
 
     }
 
+    public async delete(userId: string, ID: string) {
+        const IdDir = join(__filename, `${this.dirname}/${userId}/${ID}`)
+        if(!exists(userId, ID)) return true;
+        
+        rmdirSync(IdDir)
+        return !exists(userId, ID)
 
+    }
 }
