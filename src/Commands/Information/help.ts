@@ -18,23 +18,16 @@ export const slashCommand: ApplicationCommandOptionsSubCommand = {
 export const update: Boolean = false;
 
 export async function execute(Merlin: Merlin, message: GuildCommandInteraction, args: string[]) {
-    const commands: any = Array.from(new Set(getCommands().values())).filter((x) => x.name).sort((a, b) => a?.name?.localeCompare(b?.name));
-    let pageCount = 0
-    const pages: any = [];
-    const chunks: any = Math.ceil(commands.length / 25);
-    Array(chunks).fill(undefined).forEach((_, i) => {
-        const start = i * 25;
-        const end = start + 25;
-        pages.push(commands.slice(start, end));
-    });
-    let compo: any = [{
-        type: 1,
-        components: [{
-            type: 3,
-            customID: "commands",
-            options: pages[pageCount].map((x: any) => ({ value: x.name, default: command && x.name == command.command, label: x.name, emoji: { id: "1112798003217039442" } }))
-        }]
-    }]
+    const commands: [string, Command][] = Array.from(getCommands().entries())
+
+    const commandHelp = commands.map(([commandName, commandInfo]) => {
+        const options = {
+            label: commandInfo.slashCommand.name,
+            value: commandInfo.slashCommand.name,
+        }
+        return options
+    })
+
     const embed = {
         author: { name: `Merlin - List of commands `, iconURL: "https://images-ext-2.discordapp.net/external/Z5gPyhkgY1enaYDZNLiL0faqJ6fycDh5oXi2hraSqA8/https/cdn.jsdelivr.net/gh/twitter/twemoji%4014.0.2/assets/72x72/1f3e0.png" },
         description: `**Merlin** is a bot that will accompany you throughout your Discord server. Its goal is to help you **easily manage your server**.\n\nBelow, you will find a **menu containing all of Merlin's commands**.`,
@@ -74,32 +67,7 @@ export async function execute(Merlin: Merlin, message: GuildCommandInteraction, 
 
 
     collector.on("collect", (interaction: GuildComponentSelectMenuInteraction) => {
-        if (interaction.data.customID === "left") {
-            interaction.deferUpdate()
-            pageCount++
 
-            if (pageCount == pages.length) {
-                pageCount = 0
-            }
-
-            message.editOriginal({
-                embeds: [embed],
-                components: [component]
-            })
-        }
-        if (interaction.data.customID === "left") {
-            interaction.deferUpdate()
-            pageCount--
-
-            if (pageCount == -1) {
-                pageCount = pages.length - 1
-            }
-
-            message.editOriginal({
-                embeds: [embed],
-                components: [component]
-            })
-        }
         if (interaction.data && interaction.data.values.raw.length > 0) {
             const x: Command | undefined = getCommands().get(interaction?.data?.values?.raw[0])
 
