@@ -1,2 +1,2 @@
-# merlin
-le vrai bot goatesque
+# Merlin
+My old discord bot that was in development
